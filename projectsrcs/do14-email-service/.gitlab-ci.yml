@@ -1,0 +1,10 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "pipeline"
+      when: always
+    - when: never
+
+include:
+  - project: do14-online-boutique/do14-manager-project
+    ref: main
+    file: $CI_PIPELINE_FILE

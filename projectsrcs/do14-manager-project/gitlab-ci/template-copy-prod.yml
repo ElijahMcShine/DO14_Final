@@ -1,0 +1,79 @@
+copy-to-prod:
+  image: alpine:latest
+  stage: approve-to-prod
+  when: manual
+  needs:
+    - job: postman-test
+  allow_failure: false
+  script:
+    - echo "Prepare to load images to prod repository"
+
+
+.load-prod-images-template:
+  stage: approve-to-prod
+  image: docker:latest
+  allow_failure: false
+  when: on_success
+  needs:
+    - job: copy-to-prod
+  variables:
+    CI_IMAGE_NAME: "${HARBOR_HOST}/do14stage/${SERVICE}"
+    CI_STAGE_IMAGE_NAME: "${HARBOR_HOST}/do14prod/${SERVICE}"
+  before_script:
+    - echo $HARBOR_PASSWORD | docker login -u $HARBOR_USERNAME $HARBOR_HOST --password-stdin
+  script:
+    - docker pull ${CI_IMAGE_NAME}:latest
+    - docker tag ${CI_IMAGE_NAME}:latest ${CI_STAGE_IMAGE_NAME}:${RELEASE_TAG}
+    - docker push ${CI_STAGE_IMAGE_NAME}:${RELEASE_TAG}
+    - docker tag ${CI_STAGE_IMAGE_NAME}:${RELEASE_TAG} ${CI_STAGE_IMAGE_NAME}:latest
+    - docker push ${CI_STAGE_IMAGE_NAME}:latest
+    
+load-prod-image-ad-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-ad-service
+
+load-prod-image-cart-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-cart-service
+
+load-prod-image-checkout-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-checkout-service
+
+load-prod-image-currency-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-currency-service
+
+load-prod-image-email-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-email-service
+
+load-prod-image-frontend:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-frontend
+
+load-prod-image-payment-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-payment-service
+
+load-prod-image-catalog-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-product-catalog-service
+
+load-prod-image-recommendation-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-recommendation-service
+
+load-prod-image-service-service:
+  extends: .load-prod-images-template
+  variables:
+    SERVICE: do14-shipping-service

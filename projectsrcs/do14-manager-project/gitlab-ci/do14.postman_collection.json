@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "5830c8e0-2541-4d41-a44e-d12c7d7a6c88",
+		"name": "Application Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42681968"
+	},
+	"item": [
+		{
+			"name": "do14",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get main page\", function() {",
+							"    pm.response.to.have.status(200)",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{APP_HOST}}:{{APP_PORT}}/",
+					"protocol": "http",
+					"host": [
+						"{{APP_HOST}}"
+					],
+					"port": "{{APP_PORT}}",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "APP_PORT",
+			"value": "80"
+		},
+		{
+			"key": "APP_HOST",
+			"value": ""
+		}
+	]
+}

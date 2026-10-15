@@ -1,0 +1,59 @@
+.build-trigger-template:
+  stage: build
+  variables:
+    CI_PIPELINE_FILE: gitlab-ci/build-extend.yml
+  trigger:
+    project: do14-online-boutique/${SERVICE}
+    branch: develop
+    strategy: mirror
+
+
+ad-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-ad-service
+
+cart-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-cart-service
+
+checkout-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-checkout-service
+
+currency-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-currency-service
+
+email-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-email-service
+
+frontend-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-frontend
+
+payment-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-payment-service
+
+catalog-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-product-catalog-service
+
+recommendation-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-recommendation-service
+
+shipping-service-build-trigger:
+  extends: .build-trigger-template
+  variables:
+    SERVICE: do14-shipping-service

@@ -1,0 +1,74 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: image-updater
+spec:
+  namespace: argocd
+  commonUpdateSettings:
+    updateStrategy: "alphabetical"
+    forceUpdate: true
+    ignoreTags: 
+      - latest
+  applicationRefs:
+    - namePattern: do14-stage
+      images:
+        - alias: "adService"
+          imageName: "docker.mcshine.ru/do14stage/do14-ad-service"
+          manifestTargets:
+            helm:
+              name: adService.image.name
+              tag: adService.image.tag
+        - alias: "cartService"
+          imageName: "docker.mcshine.ru/do14stage/do14-cart-service"
+          manifestTargets:
+            helm:
+              name: cartService.image.name
+              tag: cartService.image.tag
+        - alias: "checkoutService"
+          imageName: "docker.mcshine.ru/do14stage/do14-checkout-service"
+          manifestTargets:
+            helm:
+              name: checkoutService.image.name
+              tag: checkoutService.image.tag
+        - alias: "currencyService"
+          imageName: "docker.mcshine.ru/do14stage/do14-currency-service"
+          manifestTargets:
+            helm:
+              name: currencyService.image.name
+              tag: currencyService.image.tag
+        - alias: "emailService"
+          imageName: "docker.mcshine.ru/do14stage/do14-email-service"
+          manifestTargets:
+            helm:
+              name: emailService.image.name
+              tag: emailService.image.tag
+        - alias: "frontend"
+          imageName: "docker.mcshine.ru/do14stage/do14-frontend"
+          manifestTargets:
+            helm:
+              name: frontend.image.name
+              tag: frontend.image.tag
+        - alias: "paymentService"
+          imageName: "docker.mcshine.ru/do14stage/do14-payment-service"
+          manifestTargets:
+            helm:
+              name: paymentService.image.name
+              tag: paymentService.image.tag
+        - alias: "productCatalogService"
+          imageName: "docker.mcshine.ru/do14stage/do14-product-catalog-service"
+          manifestTargets:
+            helm:
+              name: productCatalogService.image.name
+              tag: productCatalogService.image.tag
+        - alias: "recommendationService"
+          imageName: "docker.mcshine.ru/do14stage/do14-recommendation-service"
+          manifestTargets:
+            helm:
+              name: recommendationService.image.name
+              tag: recommendationService.image.tag
+        - alias: "shippingService"
+          imageName: "docker.mcshine.ru/do14stage/do14-shipping-service"
+          manifestTargets:
+            helm:
+              name: shippingService.image.name
+              tag: shippingService.image.tag

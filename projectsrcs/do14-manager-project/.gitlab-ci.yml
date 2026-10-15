@@ -1,0 +1,17 @@
+default:
+  tags:
+    - inst-kuber-runner
+
+variables:
+  IMAGE_TIMESTAMP: ${CI_PIPELINE_CREATED_AT}
+  RELEASE_TAG: "0.0.1"
+
+stages:
+  - build
+  - test
+  - approve-to-prod
+
+include:
+  - 'gitlab-ci/template-build.yml'
+  - 'gitlab-ci/template-test.yml'
+  - 'gitlab-ci/template-copy-prod.yml'
